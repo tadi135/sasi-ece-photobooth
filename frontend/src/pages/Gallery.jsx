@@ -375,7 +375,7 @@ const Gallery = () => {
         )}
 
         {!initialLoading && displayPhotos.length > 0 && (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
+          <div className="grid grid-cols-2 sm:`-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
             {displayPhotos.map((photo, index) => (
               <div key={photo._id} className="card-anim"
                 style={{animationDelay:`${Math.min(index*40,600)}ms`}}>
