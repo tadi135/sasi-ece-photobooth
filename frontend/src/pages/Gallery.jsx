@@ -23,17 +23,6 @@ const ANNOUNCEMENT_URL     = '/announcement.jpg'; // place file in your /public 
 const BANNER_SRC = '/banner.png';
 
 /* ── Announcement Modal ─────────────────────────────────────────────────── */
-const AnnouncementModal = ({ onClose }) => (
-  <>
-    <style>{`
-      @keyframes modalIn {
-        from { opacity:0; transform:scale(0.90) translateY(20px); }
-        to   { opacity:1; transform:scale(1)    translateY(0);    }
-      }
-      @keyframes bdIn { from{opacity:0} to{opacity:1} }
-      .ann-bd   { animation:bdIn    0.25s ease both; }
-      .ann-card { animation:modalIn 0.35s cubic-bezier(0.34,1.56,0.64,1) both; }
-    `}</style>
 
     <div
       className="ann-bd fixed inset-0 z-50 flex items-center justify-center p-4"
