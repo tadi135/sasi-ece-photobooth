@@ -46,7 +46,7 @@ const photoSchema = new mongoose.Schema(
 photoSchema.pre('save', async function (next) {
   if (!this.photoNumber) {
     const count = await mongoose.model('Photo').countDocuments();
-    const num = String(count + 1).padStart(3, '0');
+    const num = String(count + 1).padStart(1, '0');
     this.photoNumber = `ECE${num}`;
   }
   next();
