@@ -60,27 +60,128 @@ const Gallery = () => {
 
   return (
     <div className="min-h-screen">
+      {/* Keyframe animation injections */}
+      <style>{`
+        @keyframes floatY {
+          0%, 100% { transform: translateY(0px) scale(1); opacity: 0.12; }
+          50% { transform: translateY(-28px) scale(1.08); opacity: 0.22; }
+        }
+        @keyframes floatX {
+          0%, 100% { transform: translateX(0px) scale(1); opacity: 0.08; }
+          50% { transform: translateX(20px) scale(1.05); opacity: 0.16; }
+        }
+        @keyframes twinkle {
+          0%, 100% { opacity: 0; transform: scale(0.5) rotate(0deg); }
+          50% { opacity: 1; transform: scale(1.2) rotate(20deg); }
+        }
+        @keyframes shimmerText {
+          0% { background-position: -200% center; }
+          100% { background-position: 200% center; }
+        }
+        @keyframes pulseRing {
+          0% { box-shadow: 0 0 0 0 rgba(244, 185, 66, 0.25); }
+          70% { box-shadow: 0 0 0 12px rgba(244, 185, 66, 0); }
+          100% { box-shadow: 0 0 0 0 rgba(244, 185, 66, 0); }
+        }
+        @keyframes borderGlow {
+          0%, 100% { border-color: rgba(244, 185, 66, 0.35); }
+          50% { border-color: rgba(244, 185, 66, 0.8); }
+        }
+        @keyframes cardEntrance {
+          from { opacity: 0; transform: translateY(20px) scale(0.96); }
+          to   { opacity: 1; transform: translateY(0)    scale(1); }
+        }
+        @keyframes scanLine {
+          0%   { top: 0%; opacity: 0.18; }
+          50%  { opacity: 0.08; }
+          100% { top: 100%; opacity: 0.18; }
+        }
+        @keyframes orbitSpin {
+          from { transform: rotate(0deg) translateX(38px) rotate(0deg); }
+          to   { transform: rotate(360deg) translateX(38px) rotate(-360deg); }
+        }
+        .shimmer-gold {
+          background: linear-gradient(90deg, #F4B942 0%, #ffe68a 40%, #F4B942 60%, #c88b10 100%);
+          background-size: 200% auto;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          animation: shimmerText 3.5s linear infinite;
+        }
+        .search-focus-glow:focus-within {
+          animation: borderGlow 1.8s ease-in-out infinite;
+        }
+        .photo-card-animate {
+          animation: cardEntrance 0.45s ease both;
+        }
+        .search-btn-pulse {
+          animation: pulseRing 2.2s ease-in-out infinite;
+        }
+      `}</style>
+
       {/* Hero */}
       <div className="relative overflow-hidden">
-        {/* Background pattern */}
+        {/* Dot grid background */}
         <div className="absolute inset-0 opacity-5"
           style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #F4B942 1px, transparent 0)', backgroundSize: '32px 32px' }} />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-64 bg-gold-500/10 rounded-full blur-3xl pointer-events-none" />
+
+        {/* Animated floating orbs */}
+        <div className="absolute top-8 left-1/4 w-72 h-72 bg-gold-500/10 rounded-full pointer-events-none"
+          style={{ animation: 'floatY 7s ease-in-out infinite' }} />
+        <div className="absolute top-12 right-1/4 w-48 h-48 bg-gold-400/8 rounded-full pointer-events-none"
+          style={{ animation: 'floatY 9s ease-in-out infinite 1.5s' }} />
+        <div className="absolute bottom-4 left-1/3 w-36 h-36 bg-gold-300/6 rounded-full pointer-events-none"
+          style={{ animation: 'floatX 11s ease-in-out infinite 0.8s' }} />
+
+        {/* Scan line effect */}
+        <div className="absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-gold-400/30 to-transparent pointer-events-none"
+          style={{ animation: 'scanLine 6s linear infinite' }} />
+
+        {/* Twinkle stars */}
+        {[
+          { top: '18%', left: '12%', delay: '0s', size: 5 },
+          { top: '30%', right: '10%', delay: '0.8s', size: 4 },
+          { top: '60%', left: '7%', delay: '1.6s', size: 6 },
+          { top: '15%', right: '18%', delay: '2.2s', size: 3 },
+          { top: '72%', right: '14%', delay: '0.4s', size: 5 },
+        ].map((s, i) => (
+          <div key={i} className="absolute pointer-events-none"
+            style={{ top: s.top, left: s.left, right: s.right,
+              animation: `twinkle ${2.5 + i * 0.4}s ease-in-out infinite ${s.delay}` }}>
+            <svg width={s.size * 2} height={s.size * 2} viewBox="0 0 10 10">
+              <polygon points="5,0 6,4 10,5 6,6 5,10 4,6 0,5 4,4"
+                fill="#F4B942" opacity="0.7" />
+            </svg>
+          </div>
+        ))}
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 text-center">
-          <p className="text-gold-500 text-xs font-mono tracking-[0.3em] uppercase mb-3 animate-fade-in">
-            SASI INSTITUE OF TECHNOLOGY AND ENGINERRING
-          </p>
+
+          {/* Animated badge */}
+          <div className="inline-flex items-center gap-2 mb-4 animate-fade-in">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-gold-500" />
+            </span>
+            <p className="text-gold-500 text-xs font-mono tracking-[0.3em] uppercase">
+              SASI INSTITUTE OF TECHNOLOGY AND ENGINEERING
+            </p>
+          </div>
+
+          {/* Headline with shimmer */}
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-3 animate-slide-up">
             ECE Farewell
-            <span className="block gold-text">Photo Booth</span>
+            <span className="block shimmer-gold">Photo Booth</span>
           </h1>
+
           <p className="text-dark-400 text-base sm:text-lg max-w-md mx-auto mb-8 animate-slide-up animate-delay-100">
-            Find your memories. Download & share with friends forever.
+            Find your memories. Download &amp; share with friends forever.
           </p>
 
-          {/* Search bar */}
-          <form onSubmit={handleSearch} className="flex gap-2 max-w-md mx-auto animate-slide-up animate-delay-200">
+          {/* Search bar with glow border */}
+          <form onSubmit={handleSearch}
+            className="flex gap-2 max-w-md mx-auto animate-slide-up animate-delay-200 search-focus-glow"
+            style={{ borderRadius: '0.75rem' }}>
             <div className="relative flex-1">
               <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-dark-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -96,7 +197,7 @@ const Gallery = () => {
             <button
               type="submit"
               disabled={searching}
-              className="px-5 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 disabled:opacity-60 text-dark-900 font-semibold text-sm transition-all whitespace-nowrap"
+              className="px-5 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 disabled:opacity-60 text-dark-900 font-semibold text-sm transition-all whitespace-nowrap search-btn-pulse"
             >
               {searching ? '...' : 'Search'}
             </button>
@@ -159,17 +260,22 @@ const Gallery = () => {
           </div>
         )}
 
-        {/* Photo grid */}
+        {/* Photo grid — staggered entrance animation */}
         {!initialLoading && displayPhotos.length > 0 && (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
-            {displayPhotos.map((photo) => (
-              <PhotoCard
+            {displayPhotos.map((photo, index) => (
+              <div
                 key={photo._id}
-                photo={photo}
-                onDelete={handleDelete}
-                isAdmin={isAuth}
-                onClick={openModal}
-              />
+                className="photo-card-animate"
+                style={{ animationDelay: `${Math.min(index * 40, 600)}ms` }}
+              >
+                <PhotoCard
+                  photo={photo}
+                  onDelete={handleDelete}
+                  isAdmin={isAuth}
+                  onClick={openModal}
+                />
+              </div>
             ))}
           </div>
         )}
