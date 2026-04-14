@@ -96,7 +96,7 @@ const AnnouncementModal = ({ onClose }) => (
         <div className="flex items-center justify-between px-5 py-3"
           style={{ background:'#f7f7f7', borderTop:'1px solid #eee' }}>
           <p className="text-xs font-medium" style={{ color:'#1B3A8C' }}>
-            SASI Institute of Technology &amp; Engineering · ECE Farewell 2025
+            SASI Institute of Technology &amp; Engineering · ECE Farewell 2026
           </p>
           <button
             onClick={onClose}
