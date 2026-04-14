@@ -16,7 +16,7 @@ import toast from 'react-hot-toast';
 // ─────────────────────────────────────────────────────────────────────────────
 const ANNOUNCEMENT_ENABLED = true;
 const ANNOUNCEMENT_TYPE    = 'image';       // change to 'video' for a video popup
-const ANNOUNCEMENT_URL     = '/announcement.jpg'; // place file in your /public folder
+const ANNOUNCEMENT_URL     = '/announcement.jpg.jpeg'; // place file in your /public folder
 // ─────────────────────────────────────────────────────────────────────────────
 
 // Place the college banner image at /public/banner.png
